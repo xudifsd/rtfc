@@ -13,10 +13,14 @@
 (defn pprint-all
   ([v] (println v "got no args"))
   ([v & args]
-   (doseq [arg args
-           n (range)]
-     (println n "arg for" v "is")
-     (pp/pprint arg))))
+   (loop [arg args
+           n 0]
+     (if (empty? arg)
+       nil
+       (do
+         (println n "arg for" v "is")
+         (pp/pprint arg)
+         (recur (rest arg) (inc n)))))))
 
 (defn print-st [& _]
   (try
@@ -38,9 +42,10 @@
                           (pp/pprint result)
                           (println))))))
 
-(defn untrace [v]
-  (alter-var-root v (fn [_]
+(defn untrace
+  ([v] (alter-var-root v (fn [_]
                       (get @var-roots v))))
+  ([v & _] (untrace v)))
 
 (defn untrace-all
   ([] (untrace-all nil))
