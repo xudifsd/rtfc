@@ -1,4 +1,4 @@
-(defproject rtfc "0.0.2"
+(defproject rtfc (.trim (slurp "VERSION"))
   :description "read the f**king code"
   :url "http://example.com/FIXME"
   :license {:name "Eclipse Public License"

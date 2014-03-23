@@ -40,11 +40,13 @@
                         (let [result (apply orig all)]
                           (println "return value for" v "is:")
                           (pp/pprint result)
-                          (println))))))
+                          (println)
+                          result)))))
 
 (defn untrace
-  ([v] (alter-var-root v (fn [_]
-                      (get @var-roots v))))
+  ([v] (when (get @var-roots v)
+         (alter-var-root v (fn [_]
+                             (get @var-roots v)))))
   ([v & _] (untrace v)))
 
 (defn untrace-all
