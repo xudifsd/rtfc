@@ -18,8 +18,8 @@
      (if (empty? arg)
        nil
        (do
-         (println n "arg for" v "is")
-         (pp/pprint arg)
+         (println n "arg for" v "is:")
+         (pp/pprint (first arg))
          (recur (rest arg) (inc n)))))))
 
 (defn print-st [& _]
